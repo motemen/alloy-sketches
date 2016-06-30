@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<alloy>
+
+<view nodetheme="Martha">
+
+<projection> <type name="Time"/> </projection>
+
+<defaultnode hideunconnected="yes"/>
+
+<defaultedge visible="no" attribute="yes"/>
+
+<node>
+   <type name="AuthorizationServerIssueCodeEvent"/>
+   <type name="ClientAuthorizesUserAgentEvent"/>
+   <type name="Int"/>
+   <type name="String"/>
+   <type name="Time"/>
+   <type name="univ"/>
+   <type name="UserAgentVisitsClientEvent"/>
+   <type name="seq/Int"/>
+   <set name="$userAgentsAreProperlyAuthorized_t" type="Time"/>
+</node>
+
+<node color="Gray">
+   <type name="UserAgent"/>
+</node>
+
+<node color="Red">
+   <type name="Token"/>
+</node>
+
+<node hideunconnected="no" color="Green">
+   <type name="Event"/>
+</node>
+
+<node shape="Dbl Octagon">
+   <type name="Code"/>
+</node>
+
+<node shape="Ellipse" color="Yellow">
+   <type name="AuthorizationServer"/>
+</node>
+
+<node shape="Hexagon">
+   <type name="ClientId"/>
+</node>
+
+<node shape="Inv House">
+   <type name="MaliciousUserAgent"/>
+</node>
+
+<node shape="Inv Triangle">
+   <type name="InnocentUserAgent"/>
+</node>
+
+<node shape="Lined Diamond" color="White">
+   <type name="ResourceOwner"/>
+</node>
+
+<node shape="Octagon">
+   <type name="ClientSecret"/>
+</node>
+
+<node shape="Parallelogram" color="Blue">
+   <type name="Client"/>
+</node>
+
+<node shape="Tpl Octagon">
+   <type name="State"/>
+</node>
+
+<node showinattr="no" style="Bold">
+   <set name="post" type="Event"/>
+</node>
+
+<node showinattr="no" style="Bold" label="userAgent">
+   <set name="$userAgentsAreProperlyAuthorized_userAgent" type="InnocentUserAgent"/>
+</node>
+
+<node style="Bold">
+   <set name="First" type="ordering/Ord"/>
+   <set name="Next" type="ordering/Ord"/>
+   <set name="pre" type="Event"/>
+</node>
+
+<node style="Bold" label="client">
+   <set name="$userAgentsAreProperlyAuthorized_client" type="Client"/>
+</node>
+
+<node style="Bold" label="resourceOwner">
+   <set name="$userAgentsAreProperlyAuthorized_resourceOwner" type="ResourceOwner"/>
+</node>
+
+<node visible="no">
+   <type name="ordering/Ord"/>
+</node>
+
+<edge constraint="no">
+   <relation name="knownClients"> <type name="AuthorizationServer"/> <type name="ClientId"/> <type name="Client"/> </relation>
+</edge>
+
+<edge visible="yes" attribute="no">
+   <relation name="initiator"> <type name="Event"/> <type name="Event"/> </relation>
+</edge>
+
+<edge visible="yes" constraint="no">
+   <relation name="issuedCodes"> <type name="AuthorizationServer"/> <type name="Code"/> <type name="Client"/> <type name="ResourceOwner"/> </relation>
+   <relation name="knownResourceOwners"> <type name="AuthorizationServer"/> <type name="UserAgent"/> <type name="ResourceOwner"/> </relation>
+   <relation name="obtainedAuthorizations"> <type name="Client"/> <type name="UserAgent"/> <type name="ResourceOwner"/> </relation>
+   <relation name="userAgentStates"> <type name="Client"/> <type name="UserAgent"/> <type name="State"/> </relation>
+</edge>
+
+</view>
+
+</alloy>
